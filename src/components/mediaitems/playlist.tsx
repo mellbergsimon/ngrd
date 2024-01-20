@@ -1,15 +1,18 @@
 'use client'
 
 import { useState } from "react";
+import { backInOut, motion, AnimatePresence } from "framer-motion";
 
-import { IncButton } from "./addMediaButton";
+import { Button } from "../ui/button";
+
 
 function Playlist({ amount }: { amount: number }) {
   const [mediaItemAmounts, setMediaItemAmounts] = useState<number>(amount);
 
-  const handleClick = () => {
+  const handleClick = (increment: boolean) => {
     console.log("mediaItemAmounts: " + mediaItemAmounts)
-    setMediaItemAmounts(mediaItemAmounts + 1);
+    const newInc = increment ? 1 : -1
+    setMediaItemAmounts(mediaItemAmounts + newInc);
   };
 
   // useEffect(() => {
@@ -45,8 +48,6 @@ function Playlist({ amount }: { amount: number }) {
   //   };
   // }, [knightPosition]);
 
-
-
   const content = [];
 
   for (let i = 0; i < mediaItemAmounts; i++) {
@@ -54,14 +55,17 @@ function Playlist({ amount }: { amount: number }) {
   }
 
   return (
-    <div className="flex flex-col w-screen h-screen bg-slate-400 rounded-lg">
-      {content}
+
+    <div className="flex flex-col w-screen h-screen rounded-lg">
+      <AnimatePresence initial={false}>
+        {content}
+      </AnimatePresence>
     </div>
   );
 }
 interface RenderMediaItemProps {
   i: number;
-  handleClick: () => void;
+  handleClick: (increment: boolean) => void;
 }
 
 function renderMediaItem({ i, handleClick }: RenderMediaItemProps) {
@@ -71,12 +75,25 @@ function renderMediaItem({ i, handleClick }: RenderMediaItemProps) {
   }
 
   return (
-    <div className={`m-2 ${marginT} font-semibold rounded hover:opacity-25 bg-slate-600/50`}>
-      <div className="m-4">
-        Media Item {i}
-        <IncButton funcboi={() => handleClick()}></IncButton>
-      </div>
-    </div>
+    
+      <motion.div
+        key={i}
+        className={`flex items-center m-2 ${marginT} font-semibold rounded hover:bg-slate-200 bg-gray-600`}
+        transition={{ duration: 0.2, ease: backInOut }}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 100 }}
+      >
+        <div className="m-2"> {/* Media item should go here */}
+          Media Item {i}
+        </div>
+        <div className="m-2">
+          <Button onClick={() => handleClick(true)}>Inc</Button>
+          <Button onClick={() => handleClick(false)}>Dec</Button>
+        </div>
+      </motion.div>
+    
+
   );
 }
 

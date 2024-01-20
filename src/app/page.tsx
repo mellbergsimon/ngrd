@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/resizable"
 
 import { Playlist } from "@/components/mediaitems/playlist"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function Home() {
   return (
@@ -20,9 +21,10 @@ export default function Home() {
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={75}> {/* BOX TWO */}
-            <div className="flex m-5 items-center justify-center">
-              <Playlist amount={7}></Playlist>
-            </div>
+            
+              <div className="flex m-5 items-center justify-center">
+                <Playlist amount={3}></Playlist>
+              </div>
           </ResizablePanel>
           <ResizableHandle />
           <ResizablePanel defaultSize={20}>
