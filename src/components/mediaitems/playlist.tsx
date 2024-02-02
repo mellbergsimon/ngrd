@@ -6,6 +6,18 @@ import { backInOut, motion, AnimatePresence } from "framer-motion";
 import { Button } from "../ui/button";
 
 
+
+import { CasparCG } from "casparcg-connection";
+
+
+function CasparTest() {
+  const connection = new CasparCG()
+
+  const cghost = "192.168.11.17";
+  connection.connect(cghost);
+
+}
+
 function Playlist({ amount }: { amount: number }) {
   const [mediaItemAmounts, setMediaItemAmounts] = useState<number>(amount);
 
@@ -56,7 +68,7 @@ function Playlist({ amount }: { amount: number }) {
 
   return (
 
-    <div className="flex flex-col w-screen h-screen rounded-lg">
+    <div className="w-full h-max border-cyan-500 border-2 bg-inherit">
       <AnimatePresence initial={false}>
         {content}
       </AnimatePresence>
@@ -75,24 +87,43 @@ function renderMediaItem({ i, handleClick }: RenderMediaItemProps) {
   }
 
   return (
-    
-      <motion.div
-        key={i}
-        className={`flex items-center m-2 ${marginT} font-semibold rounded hover:bg-slate-200 bg-gray-600`}
-        transition={{ duration: 0.2, ease: backInOut }}
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 100 }}
-      >
-        <div className="m-2"> {/* Media item should go here */}
-          Media Item {i}
-        </div>
-        <div className="m-2">
-          <Button onClick={() => handleClick(true)}>Inc</Button>
-          <Button onClick={() => handleClick(false)}>Dec</Button>
-        </div>
-      </motion.div>
-    
+
+    <motion.div
+      key={i}
+      className={`flex justify-start items-center ${marginT} font-semibold text-neutral-50 rounded-md bg-inherit hover:bg-neutral-600/75`}
+      transition={{ duration: 0.2, ease: 'backInOut' }}
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 100 }}
+    >
+      {/* First Child */}
+      <div className="flex-shrink-0 w-4 m-2 text-slate-400/75">
+        {i + 1}
+      </div>
+
+      {/* Second Child */}
+      <div className="flex-shrink-0 bg-white/50 h-10 w-10 text-sm m-1 flex items-center justify-center">
+        ICON
+      </div>
+
+      {/* Empty Space */}
+      <div className="flex-shrink-0" style={{ flexBasis: '5%' }} />
+
+      {/* Third Child */}
+      <div className="text-neutral-100">
+        {/* Your content for the third child goes here */}
+        Media Item
+      </div>
+
+      {/* Fourth Child */}
+      <div className="flex-grow" />
+
+      <div className="justify-self-end">
+        <Button onClick={() => handleClick(true)}>Inc</Button>
+        <Button onClick={() => handleClick(false)}>Dec</Button>
+      </div>
+    </motion.div>
+
 
   );
 }

@@ -9,7 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function Home() {
   return (
-    <main className="flex h-screen w-screen justify-center items-center bg-gradient-to-r to-pink-400 from-indigo-500">
+    <main className="flex h-screen w-screen justify-center items-center bg-neutral-700">
       <div className="z-10 h-screen w-screen">
         <ResizablePanelGroup
           direction="horizontal"
@@ -19,25 +19,39 @@ export default function Home() {
               <span className="font-semibold">One</span>
             </div>
           </ResizablePanel>
-          <ResizableHandle />
+
+
+
+          <ResizableHandle/>
+
+
+
           <ResizablePanel defaultSize={75}> {/* BOX TWO */}
             
-              <div className="flex m-5 items-center justify-center">
-                <Playlist amount={3}></Playlist>
+            <ScrollArea className="h-screen">
+              <div className="flex m-1 mr-3 items-center justify-center">
+                <Playlist amount={17}></Playlist>
               </div>
+            </ScrollArea>
+
           </ResizablePanel>
-          <ResizableHandle />
+
+
+          <ResizableHandle/>
+
+
+
           <ResizablePanel defaultSize={20}>
             <ResizablePanelGroup direction="vertical">
               <ResizablePanel defaultSize={25}>
                 <div className="flex h-full items-center justify-center p-6">
-                  <span className="font-semibold">Two</span>
+                  <span className="font-semibold">Three</span>
                 </div>
               </ResizablePanel>
               <ResizableHandle />
               <ResizablePanel>
                 <div className="flex h-full items-center justify-center p-6">
-                  <span className="font-semibold">Three</span>
+                  <span className="font-semibold">Four</span>
                 </div>
               </ResizablePanel>
             </ResizablePanelGroup>
